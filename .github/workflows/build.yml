@@ -24,7 +24,6 @@ jobs:
 
       - name: Package .vsix
         run: npx @vscode/vsce package
-
       - name: Upload .vsix artifact
         uses: actions/upload-artifact@v4
         with:
@@ -33,11 +32,10 @@ jobs:
 
   publish:
     needs: build-and-test
-    if: startsWith(github.ref, 'refs/tags/v')
+    if: ${{ startsWith(github.ref, 'refs/tags/v') && secrets.VSCE_PAT != '' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
@@ -46,7 +44,5 @@ jobs:
       - run: npm ci
       - run: npm run compile
 
-      # Requires a VSCE_PAT secret (Marketplace Personal Access Token)
-      # set in the repo's Settings -> Secrets and variables -> Actions.
       - name: Publish to VS Code Marketplace
         run: npx @vscode/vsce publish -p ${{ secrets.VSCE_PAT }}
