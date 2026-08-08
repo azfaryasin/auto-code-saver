@@ -3,7 +3,7 @@
   "displayName": "Auto Code Saver",
   "description": "Per-document debounced auto-save with adaptive delay. No file watchers, no polling, no dependencies.",
   "version": "0.1.0",
-  "publisher": "Azfar Yasin",
+  "publisher": "azfaryasin",
   "license": "MIT",
   "icon": "icon.png",
   "repository": {
