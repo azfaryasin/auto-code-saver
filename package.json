@@ -1,0 +1,106 @@
+{
+  "name": "auto-code-saver",
+  "displayName": "Auto Code Saver",
+  "description": "Per-document debounced auto-save with adaptive delay. No file watchers, no polling, no dependencies.",
+  "version": "0.1.0",
+  "publisher": "Azfar Yasin",
+  "license": "MIT",
+  "icon": "icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/azfaryasin/auto-code-saver.git"
+  },
+  "bugs": {
+    "url": "https://github.com/azfaryasin/auto-code-saver/issues"
+  },
+  "homepage": "https://github.com/azfaryasin/auto-code-saver#readme",
+  "galleryBanner": {
+    "color": "#1e2327",
+    "theme": "dark"
+  },
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": ["Other"],
+  "keywords": ["autosave", "auto-save", "productivity", "debounce", "lightweight", "gitignore"],
+  "activationEvents": ["onStartupFinished"],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "autoCodeSaver.toggle",
+        "title": "Auto Code Saver: Toggle Auto-Save"
+      },
+      {
+        "command": "autoCodeSaver.saveAllNow",
+        "title": "Auto Code Saver: Save All Dirty Files Now"
+      }
+    ],
+    "configuration": {
+      "title": "Auto Code Saver",
+      "properties": {
+        "autoCodeSaver.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Master on/off switch for auto-save."
+        },
+        "autoCodeSaver.delay": {
+          "type": "number",
+          "default": 800,
+          "minimum": 150,
+          "maximum": 10000,
+          "description": "Milliseconds to wait after typing stops before saving."
+        },
+        "autoCodeSaver.adaptiveDebounce": {
+          "type": "boolean",
+          "default": true,
+          "description": "Shorten the delay after natural typing pauses (newline, semicolon, closing brace) so saves feel instant without saving mid-word."
+        },
+        "autoCodeSaver.adaptiveDelay": {
+          "type": "number",
+          "default": 250,
+          "minimum": 50,
+          "maximum": 5000,
+          "description": "Delay used when adaptiveDebounce triggers on a natural pause character."
+        },
+        "autoCodeSaver.excludeLanguages": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": [],
+          "description": "Language IDs to exclude from auto-save (e.g. markdown, jsonc)."
+        },
+        "autoCodeSaver.excludePatterns": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": [],
+          "description": "Simple glob patterns (using * wildcard) to exclude by file path, e.g. *.log, node_modules/*."
+        },
+        "autoCodeSaver.showStatusBarIcon": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show the Auto Code Saver toggle icon in the status bar."
+        },
+        "autoCodeSaver.respectGitignore": {
+          "type": "boolean",
+          "default": false,
+          "description": "Skip auto-saving files matched by the workspace's .gitignore. Adds a lightweight watcher scoped only to .gitignore files."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile",
+    "test": "node --test out/test/*.test.js",
+    "vscode:prepublish": "npm run compile"
+  },
+  "dependencies": {
+    "ignore": "^5.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.60.0",
+    "typescript": "^5.4.0"
+  }
+}
