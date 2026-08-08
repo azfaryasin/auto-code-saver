@@ -3,7 +3,7 @@
 </p>
 
 <h1 align="center">Auto Code Saver</h1>
-<p align="center"><b>Auto-save that thinks about what you just typed, not just how long you paused.</b></p>
+<p align="center"><b>Smart auto-save that saves fast, not sloppy.</b></p>
 
 ---
 
